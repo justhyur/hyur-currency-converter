@@ -53,16 +53,17 @@ const loadConversionRates = () => {
         axios.get('https://api.currencyapi.com/v3/latest', {params})
         .then(res => {
             writeJSONFile({date: Date.now(), data: res.data.data}, conversionRateUrl);
-            setTimeout(loadConversionRates, 1000);
+            setTimeout(loadConversionRates, 60 * 1000);
             console.log('Conversion rates successfully updated.');
         })
         .catch(err => {
             console.log('Error while updating conversion rates.');
             console.error(err);
-            setTimeout(loadConversionRates, 1000);
+            setTimeout(loadConversionRates, 60 * 1000);
         });
     }else{
-        setTimeout(loadConversionRates, 1000);
+        console.log(`Can't update yet. Still have ${range - Date.now() - conversionRates.date} to wait.`)
+        setTimeout(loadConversionRates, 60 * 1000);
     }
 }
 loadConversionRates();
