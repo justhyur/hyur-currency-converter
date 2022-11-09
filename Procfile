@@ -1,0 +1,1 @@
+web: node node_modules/puppeteer/install.js; npm install; node index.js
